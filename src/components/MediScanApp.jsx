@@ -10,8 +10,16 @@ import {
     Search,
     CheckCircle2,
     Settings,
-    X
+    X,
+    Globe,
+    Download,
+    Share2,
+    Trash2,
+    RefreshCw,
+    Plus
 } from 'lucide-react';
+
+import medicinesImage from '../assets/medicines.jpg';
 
 const MediScanApp = ({ appViewState, setAppViewState, handleAppClose }) => {
     // Handle Scan Simulation
@@ -56,13 +64,45 @@ const MediScanApp = ({ appViewState, setAppViewState, handleAppClose }) => {
 
     // VIEW: SCANNING (Animation)
     const renderScanningView = () => (
-        <div className="flex-1 bg-black/90 flex flex-col items-center justify-center relative animate-in fade-in duration-300">
-            <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?auto=format&fit=crop&q=80')] bg-cover bg-center opacity-30"></div>
-            <div className="w-64 h-64 border-2 border-white/50 rounded-3xl relative z-10 flex flex-col justify-between p-4">
-                {/* Scanning line animation - uses custom CSS keyframes */}
-                <div className="w-full h-1 bg-blue-500 shadow-[0_0_15px_rgba(59,130,246,1)] animate-scan-down"></div>
+        <div className="flex-1 bg-black flex flex-col items-center justify-center relative animate-in fade-in duration-300 overflow-hidden">
+            {/* Background Image */}
+            <div
+                className="absolute inset-0 bg-cover bg-center opacity-60"
+                style={{ backgroundImage: `url(${medicinesImage})` }}
+            ></div>
+
+            {/* Camera UI Overlay */}
+            <div className="absolute inset-0 z-10 flex flex-col items-center justify-center">
+                {/* Top Bar */}
+                <div className="absolute top-0 w-full h-24 bg-gradient-to-b from-black/80 to-transparent"></div>
+
+                {/* Viewfinder Area */}
+                <div className="relative w-64 h-64">
+                    {/* Corner Brackets */}
+                    <div className="absolute top-0 left-0 w-8 h-8 border-t-4 border-l-4 border-white rounded-tl-xl"></div>
+                    <div className="absolute top-0 right-0 w-8 h-8 border-t-4 border-r-4 border-white rounded-tr-xl"></div>
+                    <div className="absolute bottom-0 left-0 w-8 h-8 border-b-4 border-l-4 border-white rounded-bl-xl"></div>
+                    <div className="absolute bottom-0 right-0 w-8 h-8 border-b-4 border-r-4 border-white rounded-br-xl"></div>
+
+                    {/* Scanning Line */}
+                    <div className="absolute top-0 left-0 w-full h-1 bg-blue-500 shadow-[0_0_20px_rgba(59,130,246,0.8)] animate-scan-down opacity-80"></div>
+
+                    {/* Center Focus Reticle */}
+                    <div className="absolute inset-0 flex items-center justify-center opacity-30">
+                        <div className="w-4 h-4 border border-white rounded-full"></div>
+                    </div>
+                </div>
+
+                {/* Bottom Bar & Text */}
+                <div className="absolute bottom-0 w-full h-32 bg-gradient-to-t from-black/80 to-transparent flex flex-col items-center justify-end pb-8">
+                    <p className="text-white font-bold text-sm tracking-wide mb-2 animate-pulse">Align medicine within frame</p>
+                    <div className="flex gap-1">
+                        <div className="w-1.5 h-1.5 bg-white rounded-full animate-bounce delay-0"></div>
+                        <div className="w-1.5 h-1.5 bg-white rounded-full animate-bounce delay-100"></div>
+                        <div className="w-1.5 h-1.5 bg-white rounded-full animate-bounce delay-200"></div>
+                    </div>
+                </div>
             </div>
-            <p className="text-white font-medium mt-8 animate-pulse">Analyzing package...</p>
         </div>
     );
 
@@ -114,56 +154,184 @@ const MediScanApp = ({ appViewState, setAppViewState, handleAppClose }) => {
 
     // VIEW: HISTORY
     const renderHistoryView = () => (
-        <div className="flex-1 px-6 pt-2 animate-in fade-in slide-in-from-right-4 duration-300">
-            <div className="flex items-center justify-between mb-6">
-                <h3 className="text-xl font-bold text-[#0B1C33]">Recent Scans</h3>
-                <Search size={20} className="text-gray-400" />
-            </div>
-            <div className="space-y-3">
-                {[
-                    { name: "Ibuprofen", date: "Today, 9:41 AM", type: "Pain Relief" },
-                    { name: "Amoxicillin", date: "Yesterday", type: "Antibiotic" },
-                    { name: "Loratadine", date: "Mon, Oct 24", type: "Allergy" },
-                ].map((item, i) => (
-                    <div key={i} className="flex items-center gap-4 p-4 bg-white rounded-2xl shadow-sm border border-gray-100 hover:scale-[1.02] transition-transform cursor-pointer">
-                        <div className="w-10 h-10 rounded-full bg-blue-50 flex items-center justify-center text-blue-600 shrink-0">
-                            <Pill size={18} />
-                        </div>
-                        <div className="flex-1">
-                            <div className="font-bold text-gray-900 text-sm">{item.name}</div>
-                            <div className="text-xs text-gray-400">{item.type}</div>
-                        </div>
-                        <div className="text-[10px] font-bold text-gray-400">{item.date}</div>
+        <div className="flex-1 px-6 pt-6 bg-[#F5F7FA] animate-in fade-in slide-in-from-right-4 duration-300 overflow-y-auto">
+            {/* Header */}
+            <div className="flex justify-between items-start mb-2">
+                <div className="flex items-center gap-2">
+                    <h2 className="text-3xl font-bold text-[#0B1C33]">History</h2>
+                    <div className="bg-[#1A1A1A] text-[#FFD700] text-[10px] font-black px-2 py-0.5 rounded-md flex items-center gap-1">
+                        <span className="text-[#FFD700]">✦</span> PRO
                     </div>
-                ))}
+                </div>
+                <div className="flex gap-3">
+                    <button className="w-10 h-10 bg-white rounded-xl flex items-center justify-center shadow-sm border border-gray-100 text-gray-700">
+                        <Globe size={20} />
+                    </button>
+                    <button className="w-10 h-10 bg-white rounded-xl flex items-center justify-center shadow-sm border border-gray-100 text-red-500">
+                        <X size={20} />
+                    </button>
+                </div>
+            </div>
+            <p className="text-gray-400 font-medium mb-6">12 scans</p>
+
+            {/* Detailed Card */}
+            <div className="bg-white rounded-3xl p-5 shadow-sm border border-gray-100 mb-6">
+                {/* Card Header */}
+                <div className="flex gap-4 mb-4">
+                    <div className="w-16 h-16 bg-gray-100 rounded-2xl shrink-0 overflow-hidden">
+                        <img src="https://placehold.co/100x100/png?text=Mag4" alt="Product" className="w-full h-full object-cover" />
+                    </div>
+                    <div className="flex-1 min-w-0">
+                        <div className="flex justify-between items-start">
+                            <h3 className="font-bold text-gray-900 truncate pr-2">New Life Mag4 Day &...</h3>
+                            <div className="flex gap-2 shrink-0">
+                                <button className="w-8 h-8 bg-blue-50 text-blue-600 rounded-lg flex items-center justify-center">
+                                    <ChevronRight className="rotate-90" size={16} />
+                                </button>
+                                <button className="w-8 h-8 bg-blue-50 text-blue-600 rounded-lg flex items-center justify-center">
+                                    <span className="text-lg leading-none">+</span>
+                                </button>
+                            </div>
+                        </div>
+                        <div className="flex items-center justify-between mt-1">
+                            <span className="bg-purple-100 text-purple-600 text-[10px] font-bold px-2 py-1 rounded-md">Dietary Supplement</span>
+                            <button className="w-8 h-8 bg-red-50 text-red-500 rounded-lg flex items-center justify-center">
+                                <X size={16} />
+                            </button>
+                        </div>
+                        <div className="flex items-center gap-1 text-gray-400 text-xs mt-2 font-medium">
+                            <Clock size={12} />
+                            <span>Nov 3</span>
+                        </div>
+                    </div>
+                </div>
+
+                {/* Divider */}
+                <div className="h-px bg-gray-100 w-full mb-4"></div>
+
+                {/* Details Content */}
+                <div className="space-y-4">
+                    <div>
+                        <h4 className="text-xs font-bold text-purple-600 uppercase tracking-wider mb-1">Generic Name</h4>
+                        <p className="text-sm text-gray-700 font-medium">Magnesium (various forms) with Vitamin B6</p>
+                    </div>
+
+                    <div>
+                        <h4 className="text-xs font-bold text-purple-600 uppercase tracking-wider mb-1">Active Ingredients</h4>
+                        <ul className="text-sm text-gray-700 font-medium space-y-1 list-disc list-inside marker:text-gray-400">
+                            <li>Magnesium Malate</li>
+                            <li>Magnesium Citrate</li>
+                            <li>Magnesium Taurate</li>
+                            <li>Magnesium Bisglycinate</li>
+                            <li>Vitamin B6</li>
+                        </ul>
+                    </div>
+
+                    <div>
+                        <h4 className="text-xs font-bold text-purple-600 uppercase tracking-wider mb-1">Purpose</h4>
+                        <p className="text-sm text-gray-700 leading-relaxed">
+                            Dietary supplement providing magnesium and Vitamin B6 support throughout the day and night.
+                        </p>
+                    </div>
+
+                    <div>
+                        <h4 className="text-xs font-bold text-purple-600 uppercase tracking-wider mb-1">Usage Instructions</h4>
+                        <p className="text-sm text-gray-700">Take 1 tablet for day and 1 tablet for night.</p>
+                    </div>
+
+                    <div>
+                        <h4 className="text-xs font-bold text-purple-600 uppercase tracking-wider mb-1">Recommended Dosage</h4>
+                        <p className="text-sm text-gray-700">1 tablet for day, 1 tablet for night</p>
+                    </div>
+                </div>
+
+                {/* CTA Button */}
+                <button className="w-full mt-6 bg-gradient-to-r from-[#001F52] to-[#00C2FF] text-white py-3.5 rounded-xl font-bold text-sm flex items-center justify-center gap-2 shadow-lg shadow-blue-200 active:scale-95 transition-transform">
+                    <span className="text-lg leading-none">+</span> Add to Track
+                </button>
             </div>
         </div>
     );
 
     // VIEW: TRACK (PRO)
     const renderTrackView = () => (
-        <div className="flex-1 px-6 pt-2 animate-in fade-in slide-in-from-right-4 duration-300">
-            <div className="bg-[#001F52] text-white p-6 rounded-3xl mb-6 relative overflow-hidden">
-                <div className="absolute top-0 right-0 w-32 h-32 bg-blue-500 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 opacity-50"></div>
-                <div className="relative z-10">
-                    <div className="flex justify-between items-start mb-4">
-                        <h3 className="text-xl font-bold">Upgrade to Pro</h3>
-                        <div className="bg-white/20 px-2 py-1 rounded text-[10px] font-bold uppercase">Premium</div>
-                    </div>
-                    <p className="text-blue-100 text-sm mb-6">Unlock unlimited tracking, refill reminders, and family profiles.</p>
-                    <button className="w-full py-3 bg-white text-[#001F52] font-bold rounded-xl text-sm">Start Free Trial</button>
+        <div className="flex-1 px-6 pt-6 bg-[#F5F7FA] animate-in fade-in slide-in-from-right-4 duration-300 relative overflow-y-auto">
+            {/* Header */}
+            <div className="flex justify-between items-start mb-1">
+                <h2 className="text-3xl font-bold text-[#0B1C33]">Track Medicines</h2>
+                <div className="flex gap-2">
+                    <button className="w-9 h-9 bg-white rounded-xl flex items-center justify-center shadow-sm border border-gray-100 text-teal-500">
+                        <Download size={18} />
+                    </button>
+                    <button className="w-9 h-9 bg-white rounded-xl flex items-center justify-center shadow-sm border border-gray-100 text-teal-500">
+                        <Share2 size={18} />
+                    </button>
+                    <button className="w-9 h-9 bg-white rounded-xl flex items-center justify-center shadow-sm border border-gray-100 text-[#0B1C33]">
+                        <Globe size={18} />
+                    </button>
                 </div>
             </div>
-            <h3 className="text-sm font-bold text-gray-400 uppercase tracking-widest mb-4">Daily Tracker</h3>
-            <div className="p-4 bg-white border-l-4 border-green-500 rounded-r-xl shadow-sm mb-3">
-                <div className="flex justify-between items-center">
-                    <div>
-                        <div className="font-bold text-gray-900 text-sm">Morning Meds</div>
-                        <div className="text-xs text-gray-400">8:00 AM • Taken</div>
+            <p className="text-gray-400 font-medium mb-6">Daily medicine reminders</p>
+
+            {/* Medicine Card */}
+            <div className="bg-white rounded-3xl p-5 shadow-sm border border-gray-100 mb-6">
+                <div className="flex justify-between items-start mb-4">
+                    <div className="flex gap-4">
+                        <div className="w-12 h-12 bg-purple-50 rounded-2xl flex items-center justify-center text-purple-600">
+                            <Pill size={24} className="-rotate-45" />
+                        </div>
+                        <div>
+                            <h3 className="font-bold text-gray-900 text-lg">Test Medicine</h3>
+                            <div className="flex items-center gap-2 mt-1">
+                                <span className="text-gray-400 font-medium">2</span>
+                                <span className="bg-purple-100 text-purple-600 text-[10px] font-bold px-2 py-0.5 rounded-md">2x per day</span>
+                            </div>
+                        </div>
                     </div>
-                    <CheckCircle2 size={20} className="text-green-500" />
+                    <button className="text-red-400 hover:text-red-500">
+                        <Trash2 size={20} />
+                    </button>
+                </div>
+
+                {/* Sync Row */}
+                <div className="flex items-center justify-between py-4 border-t border-b border-gray-50 mb-4">
+                    <div className="flex items-center gap-2">
+                        <RefreshCw size={16} className="text-gray-400" />
+                        <span className="text-sm text-gray-600 font-medium">Sync with Health</span>
+                        <span className="bg-gray-100 text-gray-400 text-[9px] font-bold px-1.5 py-0.5 rounded">SOON</span>
+                    </div>
+                    <div className="w-10 h-6 bg-gray-100 rounded-full relative cursor-pointer">
+                        <div className="w-5 h-5 bg-white rounded-full shadow-sm absolute top-0.5 left-0.5"></div>
+                    </div>
+                </div>
+
+                {/* Notification Times */}
+                <h4 className="text-xs font-bold text-purple-600 uppercase tracking-wider mb-3">Notification Times</h4>
+                <div className="space-y-3">
+                    {/* Active Time */}
+                    <div className="flex items-center justify-between p-3 bg-green-50 rounded-xl border border-green-100">
+                        <div className="flex items-center gap-2 text-teal-600 font-bold">
+                            <Clock size={18} />
+                            <span>11:20 AM</span>
+                        </div>
+                        <div className="w-6 h-6 bg-teal-500 rounded-md shadow-sm"></div>
+                    </div>
+
+                    {/* Inactive Time */}
+                    <div className="flex items-center justify-between p-3 bg-gray-50 rounded-xl border border-gray-100">
+                        <div className="flex items-center gap-2 text-gray-500 font-bold">
+                            <Clock size={18} />
+                            <span>4:40 PM</span>
+                        </div>
+                        <div className="w-6 h-6 border-2 border-gray-200 rounded-md"></div>
+                    </div>
                 </div>
             </div>
+
+            {/* Floating Action Button */}
+            <button className="absolute bottom-6 right-6 w-14 h-14 bg-[#008B8B] text-white rounded-full shadow-lg shadow-teal-200 flex items-center justify-center hover:scale-105 active:scale-95 transition-transform">
+                <Plus size={28} />
+            </button>
         </div>
     );
 
@@ -204,7 +372,7 @@ const MediScanApp = ({ appViewState, setAppViewState, handleAppClose }) => {
     };
 
     const renderHeader = () => {
-        if (appViewState === 'scanning' || appViewState === 'result') return null;
+        if (appViewState === 'scanning' || appViewState === 'result' || appViewState === 'history' || appViewState === 'track') return null;
 
         return (
             <div className="px-6 py-4 flex justify-between items-start">

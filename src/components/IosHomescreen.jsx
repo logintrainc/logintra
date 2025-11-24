@@ -1,40 +1,70 @@
-import React from 'react';
-import {
-    Heart,
-    Cloud,
-    BarChart3,
-    Layers,
-    Pill,
-    MessageSquare,
-    Briefcase,
-    Compass,
-    Phone,
-    Globe,
-    Settings
-} from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { Pill, Phone, Globe, Settings } from 'lucide-react';
+
+const CountdownWidget = () => {
+    const [timeLeft, setTimeLeft] = useState({ days: 0, hours: 0, minutes: 0, seconds: 0 });
+
+    useEffect(() => {
+        // Set release date to 14 days from now for demo purposes
+        const releaseDate = new Date();
+        releaseDate.setDate(releaseDate.getDate() + 14);
+
+        const timer = setInterval(() => {
+            const now = new Date();
+            const difference = releaseDate - now;
+
+            if (difference > 0) {
+                setTimeLeft({
+                    days: Math.floor(difference / (1000 * 60 * 60 * 24)),
+                    hours: Math.floor((difference / (1000 * 60 * 60)) % 24),
+                    minutes: Math.floor((difference / 1000 / 60) % 60),
+                    seconds: Math.floor((difference / 1000) % 60)
+                });
+            }
+        }, 1000);
+
+        return () => clearInterval(timer);
+    }, []);
+
+    return (
+        <div className="w-full bg-white/20 backdrop-blur-md rounded-3xl p-4 text-white mb-8 border border-white/10 shadow-lg">
+            <div className="flex justify-between items-center mb-2">
+                <span className="text-xs font-bold uppercase tracking-wider opacity-80">Release In</span>
+                <span className="text-[10px] bg-white/20 px-2 py-0.5 rounded-full font-bold">BETA</span>
+            </div>
+            <div className="flex justify-between text-center">
+                {[
+                    { val: timeLeft.days, label: 'DAYS' },
+                    { val: timeLeft.hours, label: 'HRS' },
+                    { val: timeLeft.minutes, label: 'MIN' },
+                    { val: timeLeft.seconds, label: 'SEC' }
+                ].map((item, i) => (
+                    <div key={i} className="flex flex-col">
+                        <span className="text-2xl font-black font-mono leading-none">{String(item.val).padStart(2, '0')}</span>
+                        <span className="text-[8px] font-bold opacity-60 mt-1">{item.label}</span>
+                    </div>
+                ))}
+            </div>
+        </div>
+    );
+};
+
+import phoneBackground from '../assets/phonebackground.jpg';
 
 const IosHomescreen = ({ setMainPhoneState }) => {
-
-    // Icon data structure
-    const icons = [
-        { name: 'Photos', bg: 'bg-red-500', icon: <Heart size={18} fill="white" color="white" /> },
-        { name: 'Weather', bg: 'bg-blue-400', icon: <Cloud size={18} fill="white" color="white" /> },
-        { name: 'Stocks', bg: 'bg-green-500', icon: <BarChart3 size={18} fill="white" color="white" /> },
-        { name: 'Notes', bg: 'bg-yellow-500', icon: <Layers size={18} fill="white" color="white" /> },
-        { name: 'MediScan', bg: 'bg-blue-600', icon: <Pill size={18} fill="white" color="white" />, isMain: true },
-        { name: 'Mail', bg: 'bg-blue-500', icon: <MessageSquare size={18} fill="white" color="white" /> },
-        { name: 'Work', bg: 'bg-gray-600', icon: <Briefcase size={18} fill="white" color="white" /> },
-        { name: 'Maps', bg: 'bg-green-700', icon: <Compass size={18} fill="white" color="white" /> },
-    ];
+    const mediScanApp = { name: 'MediScan', bg: 'bg-blue-600', icon: <Pill size={24} fill="white" color="white" />, isMain: true };
 
     const dockIcons = [
-        { name: 'Phone', bg: 'bg-green-500/0', icon: <Phone size={20} fill="white" color="white" /> },
-        { name: 'Web', bg: 'bg-blue-500/0', icon: <Globe size={20} fill="white" color="white" /> },
-        { name: 'Settings', bg: 'bg-gray-500/0', icon: <Settings size={20} fill="white" color="white" /> },
+        { name: 'Phone', bg: 'bg-green-500/0', icon: <Phone size={24} fill="white" color="white" /> },
+        { name: 'Web', bg: 'bg-blue-500/0', icon: <Globe size={24} fill="white" color="white" /> },
+        { name: 'Settings', bg: 'bg-gray-500/0', icon: <Settings size={24} fill="white" color="white" /> },
     ];
 
     return (
-        <div className="h-full w-full bg-[url('https://placehold.co/400x800/222244/AAAAAA/png?text=Dark+iOS+Wallpaper')] bg-cover rounded-[2rem] relative flex flex-col p-4 pt-10 font-sans">
+        <div
+            className="h-full w-full bg-cover bg-center rounded-[2rem] relative flex flex-col p-6 pt-12 font-sans"
+            style={{ backgroundImage: `url(${phoneBackground})` }}
+        >
 
             {/* Status Bar */}
             <div className="absolute top-4 left-0 w-full px-6 flex justify-between text-white text-xs font-bold z-10">
@@ -45,32 +75,31 @@ const IosHomescreen = ({ setMainPhoneState }) => {
                 </div>
             </div>
 
-            {/* Icon Grid */}
-            <div className="grid grid-cols-4 gap-y-6 pt-6 flex-1 content-start">
-                {icons.map((app, index) => (
-                    <div key={index} className="flex flex-col items-center text-center relative">
-                        {app.isMain && (
-                            <div className="absolute -top-10 z-20 bg-yellow-400 text-black px-2 py-1 rounded-full text-[10px] font-black pointer-events-none transform rotate-3">
-                                TAP HERE!
-                            </div>
-                        )}
-                        <button
-                            onClick={app.isMain ? () => setMainPhoneState('appOpen') : () => { }}
-                            className={`w-14 h-14 rounded-xl flex items-center justify-center mb-1 transition-all ${app.bg} ${app.isMain ? 'cursor-pointer border-2 border-white animate-pulse-border' : 'cursor-default'}`}
-                        >
-                            {app.icon}
-                        </button>
-                        <span className="text-white text-[10px] font-medium whitespace-nowrap">
-                            {app.name}
-                        </span>
+            {/* Widgets & App Area */}
+            <div className="flex-1 flex flex-col items-center pt-4">
+                <CountdownWidget />
+
+                {/* Centered MediScan App */}
+                <div className="flex flex-col items-center text-center relative mt-8">
+                    <div className="absolute -top-12 mt-[35px] z-20 bg-yellow-400 text-black px-3 py-1.5 rounded-full text-[10px] font-black pointer-events-none transform rotate-3 shadow-lg animate-bounce">
+                        TAP HERE!
                     </div>
-                ))}
+                    <button
+                        onClick={() => setMainPhoneState('appOpen')}
+                        className={`w-20 h-20 rounded-2xl flex items-center justify-center mb-2 transition-all ${mediScanApp.bg} cursor-pointer border-2 border-white animate-pulse-border shadow-2xl hover:scale-105 active:scale-95`}
+                    >
+                        {mediScanApp.icon}
+                    </button>
+                    <span className="text-white text-xs font-medium whitespace-nowrap drop-shadow-md">
+                        {mediScanApp.name}
+                    </span>
+                </div>
             </div>
 
             {/* Dock */}
-            <div className="w-full h-20 bg-white/20 backdrop-blur-md rounded-3xl p-2 flex justify-around items-center">
+            <div className="w-full h-24 bg-white/20 backdrop-blur-xl rounded-[2rem] p-4 flex justify-around items-center mb-2 border border-white/10">
                 {dockIcons.map((app, index) => (
-                    <div key={index} className="flex flex-col items-center text-center">
+                    <div key={index} className="flex flex-col items-center text-center opacity-80 hover:opacity-100 transition-opacity">
                         <div className={`w-14 h-14 rounded-xl flex items-center justify-center ${app.bg} cursor-default`}>
                             {app.icon}
                         </div>
@@ -79,7 +108,7 @@ const IosHomescreen = ({ setMainPhoneState }) => {
             </div>
 
             {/* Home Bar */}
-            <div className="w-24 h-1 bg-white/70 rounded-full mx-auto mt-4"></div>
+            <div className="w-32 h-1.5 bg-white/70 rounded-full mx-auto mb-2"></div>
         </div>
     );
 };
