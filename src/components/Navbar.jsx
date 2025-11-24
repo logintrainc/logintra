@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { Menu, X } from 'lucide-react';
 import Button from './ui/Button';
 
+import logo from '../assets/Purb-logo.png';
+
 const Navbar = () => {
     const [scrolled, setScrolled] = useState(false);
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -16,14 +18,13 @@ const Navbar = () => {
         <nav className={`fixed top-0 w-full z-50 transition-all duration-300 ${scrolled ? 'bg-white/95 border-b border-gray-100 py-4' : 'bg-transparent py-6'}`}>
             <div className="max-w-7xl mx-auto px-6 flex items-center justify-between">
                 <div className="flex items-center gap-1">
-                    {/* Brand Color #470047 on Hover */}
-                    <span className="text-3xl font-serif font-black tracking-tighter text-black group hover:text-[#470047] transition-colors cursor-default">Purb.</span>
+                    <img src={logo} alt="Purb Logo" className="h-10 w-auto" />
                 </div>
 
                 <div className="hidden md:flex items-center gap-8">
-                    <a href="#apps" className="text-base font-bold text-black hover:text-[#470047] transition-colors">Our Apps</a>
-                    <a href="#about" className="text-base font-bold text-black hover:text-[#470047] transition-colors">About</a>
-                    <a href="#reviews" className="text-base font-bold text-black hover:text-[#470047] transition-colors">Reviews</a>
+                    <a href="#apps" className="text-base font-bold text-black hover:text-[#5e17eb] transition-colors">Our Apps</a>
+                    <a href="#about" className="text-base font-bold text-black hover:text-[#5e17eb] transition-colors">About</a>
+                    <a href="#reviews" className="text-base font-bold text-black hover:text-[#5e17eb] transition-colors">Reviews</a>
                     <Button variant="primary" className="px-6 py-2 text-xs uppercase font-black">Get the App</Button>
                 </div>
 
