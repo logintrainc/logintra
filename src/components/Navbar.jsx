@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Menu, X } from 'lucide-react';
 import Button from './ui/Button';
 
-import logo from '../assets/Purb-logo.png';
+
 
 const Navbar = () => {
     const [scrolled, setScrolled] = useState(false);
@@ -18,7 +18,7 @@ const Navbar = () => {
         <nav className={`fixed top-0 w-full z-50 transition-all duration-300 ${scrolled ? 'bg-white/95 border-b border-gray-100 py-4' : 'bg-transparent py-6'}`}>
             <div className="max-w-7xl mx-auto px-6 flex items-center justify-between">
                 <div className="flex items-center gap-1">
-                    <img src={logo} alt="Purb Logo" className="h-10 w-auto" />
+                    <span className="text-3xl font-penmanship font-bold tracking-tight text-black">Purb<span className="text-[#5e17eb]">.</span></span>
                 </div>
 
                 <div className="hidden md:flex items-center gap-8">

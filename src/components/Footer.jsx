@@ -2,7 +2,7 @@ import React from 'react';
 import { Apple, Play } from 'lucide-react';
 import Button from './ui/Button';
 
-import logo from '../assets/Purb-logo.png';
+
 
 const Footer = () => {
     return (
@@ -11,7 +11,7 @@ const Footer = () => {
                 <div className="grid md:grid-cols-4 gap-12 mb-16">
                     <div className="col-span-1 md:col-span-2">
                         <div className="flex items-center gap-2 mb-6">
-                            <img src={logo} alt="Purb Logo" className="h-10 w-auto" />
+                            <span className="text-5xl font-penmanship font-bold tracking-tight text-white">Purb<span className="text-[#5e17eb]">.</span></span>
                         </div>
                         <p className="text-gray-400 max-w-xs mb-8 font-bold">
                             Smoooth software for a jagged world.
