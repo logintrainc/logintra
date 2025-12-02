@@ -39,9 +39,10 @@ const Marquee = () => {
 const AppShowcase = () => {
     const apps = [
         {
-            title: "FocusFlow",
-            desc: "Get stuff done. Look good doing it.",
-            bg: "bg-gray-100" // Light Grey
+            title: "MediScan AI",
+            desc: "Visual Clarity for your Meds.",
+            bg: "bg-gray-100", // Light Grey
+            link: "/mediscan/"
         },
         {
             title: "ZenNote",
@@ -66,30 +67,44 @@ const AppShowcase = () => {
                 </div>
 
                 <div className="grid md:grid-cols-3 gap-8">
-                    {apps.map((app, index) => (
-                        <div key={index} className="group cursor-pointer">
-                            <div className={`${app.bg} border-2 border-black rounded-[2.5rem] p-8 aspect-[4/5] relative overflow-hidden transition-all duration-300 hover:-translate-y-2 hover:shadow-[8px_8px_0px_0px_#5e17eb] hover:border-[#5e17eb] mb-6`}>
-                                {/* Decorative circle */}
-                                <div className="absolute -top-10 -right-10 w-40 h-40 bg-black/5 rounded-full blur-xl group-hover:bg-[#5e17eb]/10 transition-colors"></div>
+                    {apps.map((app, index) => {
+                        const CardContent = () => (
+                            <>
+                                <div className={`${app.bg} border-2 border-black rounded-[2.5rem] p-8 aspect-[4/5] relative overflow-hidden transition-all duration-300 hover:-translate-y-2 hover:shadow-[8px_8px_0px_0px_#5e17eb] hover:border-[#5e17eb] mb-6`}>
+                                    {/* Decorative circle */}
+                                    <div className="absolute -top-10 -right-10 w-40 h-40 bg-black/5 rounded-full blur-xl group-hover:bg-[#5e17eb]/10 transition-colors"></div>
 
-                                <div className="h-full flex flex-col justify-end relative z-10">
-                                    <div className="bg-white/80 backdrop-blur-sm p-6 rounded-3xl border-2 border-black group-hover:border-[#5e17eb] transition-colors">
-                                        <div className="w-12 h-12 bg-black rounded-full mb-4 flex items-center justify-center group-hover:bg-[#5e17eb] transition-colors">
-                                            <div className="w-4 h-4 bg-white rounded-full"></div>
-                                        </div>
-                                        <div className="space-y-2">
-                                            <div className="h-2 w-full bg-black/10 rounded-full group-hover:bg-[#5e17eb]/20"></div>
-                                            <div className="h-2 w-2/3 bg-black/10 rounded-full group-hover:bg-[#5e17eb]/20"></div>
+                                    <div className="h-full flex flex-col justify-end relative z-10">
+                                        <div className="bg-white/80 backdrop-blur-sm p-6 rounded-3xl border-2 border-black group-hover:border-[#5e17eb] transition-colors">
+                                            <div className="w-12 h-12 bg-black rounded-full mb-4 flex items-center justify-center group-hover:bg-[#5e17eb] transition-colors">
+                                                <div className="w-4 h-4 bg-white rounded-full"></div>
+                                            </div>
+                                            <div className="space-y-2">
+                                                <div className="h-2 w-full bg-black/10 rounded-full group-hover:bg-[#5e17eb]/20"></div>
+                                                <div className="h-2 w-2/3 bg-black/10 rounded-full group-hover:bg-[#5e17eb]/20"></div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
+                                <div className="text-center">
+                                    <h3 className="text-2xl font-black text-black group-hover:text-[#5e17eb] transition-colors">{app.title}</h3>
+                                    <p className="text-sm font-bold text-gray-500 mt-2">{app.desc}</p>
+                                </div>
+                            </>
+                        );
+
+                        return (
+                            <div key={index} className="group cursor-pointer">
+                                {app.link ? (
+                                    <a href={app.link} className="block">
+                                        <CardContent />
+                                    </a>
+                                ) : (
+                                    <CardContent />
+                                )}
                             </div>
-                            <div className="text-center">
-                                <h3 className="text-2xl font-black text-black group-hover:text-[#5e17eb] transition-colors">{app.title}</h3>
-                                <p className="text-sm font-bold text-gray-500 mt-2">{app.desc}</p>
-                            </div>
-                        </div>
-                    ))}
+                        );
+                    })}
                 </div>
             </div>
         </section>
