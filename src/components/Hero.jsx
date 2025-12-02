@@ -3,6 +3,7 @@ import Button from './ui/Button';
 import FadeIn from './ui/FadeIn';
 import MediScanApp from './MediScanApp';
 import IosHomescreen from './IosHomescreen';
+import PhoneMockup from './PhoneMockup';
 
 // --- Custom CSS for iOS App Opening Animation ---
 const CustomStyles = () => (
@@ -137,37 +138,30 @@ const Hero = () => {
 
                     <FadeIn delay={500}>
                         <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 mt-8">
-                            <Button variant="primary" className="w-full sm:w-auto text-lg">
-                                Download MediScan
-                            </Button>
+                            <a href="/mediscan/">
+                                <Button variant="primary" className="w-full sm:w-auto text-lg">
+                                    Check MediScan
+                                </Button>
+                            </a>
                         </div>
                     </FadeIn>
                 </div>
 
                 {/* Hero Visual - PHONE MOCKUP */}
                 <FadeIn delay={600}>
-                    <div className="relative mx-auto lg:ml-auto w-full max-w-sm aspect-[9/19] bg-white rounded-[3rem] p-3 transform rotate-3 hover:rotate-0 transition-transform duration-500 border-8 border-gray-900 shadow-2xl">
-
-                        {/* PHONE SCREEN CONTAINER */}
-                        <div className={`h-full w-full rounded-[2rem] overflow-hidden relative flex flex-col font-sans transition-all duration-300`}>
-
-                            {mainPhoneState === 'homescreen' ? (
-                                <IosHomescreen setMainPhoneState={setMainPhoneState} />
-                            ) : (
-                                <div className="app-open-transition h-full w-full">
-                                    <MediScanApp
-                                        appViewState={appViewState}
-                                        setAppViewState={setAppViewState}
-                                        handleAppClose={handleAppClose}
-                                    />
-                                </div>
-                            )}
-
-                            {/* Home Indicator Bar (Always visible on iPhone style) */}
-                            <div className="absolute bottom-2 left-1/2 -translate-x-1/2 w-32 h-1 bg-black/50 rounded-full z-30"></div>
-                        </div>
-
-                    </div>
+                    <PhoneMockup size="default" className="lg:ml-auto rotate-3 hover:rotate-0">
+                        {mainPhoneState === 'homescreen' ? (
+                            <IosHomescreen setMainPhoneState={setMainPhoneState} />
+                        ) : (
+                            <div className="app-open-transition h-full w-full">
+                                <MediScanApp
+                                    appViewState={appViewState}
+                                    setAppViewState={setAppViewState}
+                                    handleAppClose={handleAppClose}
+                                />
+                            </div>
+                        )}
+                    </PhoneMockup>
                 </FadeIn>
             </div>
         </section>

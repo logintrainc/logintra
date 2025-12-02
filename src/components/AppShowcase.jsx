@@ -1,4 +1,5 @@
 import React from 'react';
+import { Pill, ScanLine, ShieldCheck } from 'lucide-react';
 
 // --- Custom CSS for Marquee Animation ---
 const CustomStyles = () => (
@@ -45,13 +46,13 @@ const AppShowcase = () => {
             link: "/mediscan/"
         },
         {
-            title: "ZenNote",
-            desc: "Write it down. Forget about it.",
+            title: "PhotoLink AI",
+            desc: "Connect your memories instantly.",
             bg: "bg-gray-200" // Mid Grey
         },
         {
-            title: "PulseHealth",
-            desc: "Health is wealth. Track it.",
+            title: "EV-Map",
+            desc: "Navigate the electric future.",
             bg: "bg-white" // White
         }
     ];
@@ -74,17 +75,66 @@ const AppShowcase = () => {
                                     {/* Decorative circle */}
                                     <div className="absolute -top-10 -right-10 w-40 h-40 bg-black/5 rounded-full blur-xl group-hover:bg-[#5e17eb]/10 transition-colors"></div>
 
-                                    <div className="h-full flex flex-col justify-end relative z-10">
-                                        <div className="bg-white/80 backdrop-blur-sm p-6 rounded-3xl border-2 border-black group-hover:border-[#5e17eb] transition-colors">
-                                            <div className="w-12 h-12 bg-black rounded-full mb-4 flex items-center justify-center group-hover:bg-[#5e17eb] transition-colors">
-                                                <div className="w-4 h-4 bg-white rounded-full"></div>
+                                    {/* MediScan Specific Content */}
+                                    {app.title === "MediScan AI" ? (
+                                        <div className="h-full flex flex-col justify-between relative z-10">
+                                            {/* Top: Icon and Badge */}
+                                            <div className="flex justify-between items-start">
+                                                <div className="w-16 h-16 bg-gradient-to-br from-[#000046] to-[#1CB5E0] rounded-2xl flex items-center justify-center border-2 border-black group-hover:border-[#5e17eb] transition-all group-hover:scale-110 duration-300">
+                                                    <Pill size={32} className="text-white" />
+                                                </div>
+                                                <div className="bg-black text-white px-3 py-1 rounded-full text-xs font-bold border-2 border-black group-hover:bg-[#5e17eb] group-hover:border-[#5e17eb] transition-colors">
+                                                    AI
+                                                </div>
                                             </div>
-                                            <div className="space-y-2">
-                                                <div className="h-2 w-full bg-black/10 rounded-full group-hover:bg-[#5e17eb]/20"></div>
-                                                <div className="h-2 w-2/3 bg-black/10 rounded-full group-hover:bg-[#5e17eb]/20"></div>
+
+                                            {/* Middle: Scan Visualization */}
+                                            <div className="space-y-3">
+                                                <div className="bg-white/90 backdrop-blur-sm p-4 rounded-2xl border-2 border-black group-hover:border-[#5e17eb] transition-colors">
+                                                    <div className="flex items-center gap-3">
+                                                        <ScanLine size={20} className="text-[#1CB5E0]" />
+                                                        <div className="flex-1 space-y-2">
+                                                            <div className="h-2 w-full bg-gradient-to-r from-[#000046] to-[#1CB5E0] rounded-full"></div>
+                                                            <div className="h-2 w-3/4 bg-gray-200 rounded-full"></div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div className="bg-white/90 backdrop-blur-sm p-4 rounded-2xl border-2 border-black group-hover:border-[#5e17eb] transition-colors">
+                                                    <div className="flex items-center gap-3">
+                                                        <ShieldCheck size={20} className="text-green-500" />
+                                                        <span className="text-xs font-bold text-black">No Conflicts Detected</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            {/* Bottom: Feature Pills */}
+                                            <div className="flex gap-2 flex-wrap">
+                                                <span className="px-3 py-1 bg-white border-2 border-black rounded-full text-xs font-bold group-hover:border-[#5e17eb] transition-colors">Instant ID</span>
+                                                <span className="px-3 py-1 bg-white border-2 border-black rounded-full text-xs font-bold group-hover:border-[#5e17eb] transition-colors">99.8%</span>
+                                                <span className="px-3 py-1 bg-white border-2 border-black rounded-full text-xs font-bold group-hover:border-[#5e17eb] transition-colors">Safe</span>
                                             </div>
                                         </div>
-                                    </div>
+                                    ) : (
+                                        /* Other Apps: Keep Original Design with SOON Badge */
+                                        <div className="h-full flex flex-col justify-between relative z-10">
+                                            {/* SOON Badge */}
+                                            <div className="flex justify-end">
+                                                <div className="bg-black text-white px-4 py-1.5 rounded-full text-xs font-bold border-2 border-black group-hover:bg-[#5e17eb] group-hover:border-[#5e17eb] transition-colors">
+                                                    SOON
+                                                </div>
+                                            </div>
+
+                                            <div className="bg-white/80 backdrop-blur-sm p-6 rounded-3xl border-2 border-black group-hover:border-[#5e17eb] transition-colors">
+                                                <div className="w-12 h-12 bg-black rounded-full mb-4 flex items-center justify-center group-hover:bg-[#5e17eb] transition-colors">
+                                                    <div className="w-4 h-4 bg-white rounded-full"></div>
+                                                </div>
+                                                <div className="space-y-2">
+                                                    <div className="h-2 w-full bg-black/10 rounded-full group-hover:bg-[#5e17eb]/20"></div>
+                                                    <div className="h-2 w-2/3 bg-black/10 rounded-full group-hover:bg-[#5e17eb]/20"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    )}
                                 </div>
                                 <div className="text-center">
                                     <h3 className="text-2xl font-black text-black group-hover:text-[#5e17eb] transition-colors">{app.title}</h3>

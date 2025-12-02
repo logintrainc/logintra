@@ -3,6 +3,7 @@ import ParticleLoader from './components/ParticleLoader';
 import Navigation from './components/Navigation';
 import BentoGrid from './components/BentoGrid';
 import DosageTracker from './components/DosageTracker';
+import Testimonials from './components/Testimonials';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const App: React.FC = () => {
@@ -29,7 +30,8 @@ const App: React.FC = () => {
           <main>
              <BentoGrid />
              <DosageTracker />
-             
+             <Testimonials />
+
              {/* Simple footer area */}
              <footer className="py-20 border-t border-brand-subtle mt-0 bg-white">
                 <div className="max-w-7xl mx-auto px-8 flex flex-col md:flex-row justify-between items-center">

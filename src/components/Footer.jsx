@@ -1,6 +1,7 @@
 import React from 'react';
-import { Apple, Play } from 'lucide-react';
+import { Play } from 'lucide-react';
 import Button from './ui/Button';
+import AppleIcon from './ui/AppleIcon';
 
 
 
@@ -18,7 +19,7 @@ const Footer = () => {
                         </p>
                         <div className="flex gap-4">
                             <Button variant="secondary" className="bg-white text-black hover:bg-[#5e17eb] hover:text-white border-white">
-                                <Apple size={20} className="mr-2" /> App Store
+                                <AppleIcon size={20} className="mr-2" /> App Store
                             </Button>
                             <Button variant="secondary" className="bg-transparent text-white border-white hover:bg-[#5e17eb] hover:text-white hover:border-[#5e17eb]">
                                 <Play size={20} className="mr-2" /> Google Play

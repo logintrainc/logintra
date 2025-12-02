@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Menu, X } from 'lucide-react';
 import Button from './ui/Button';
+import AppleIcon from './ui/AppleIcon';
 
 
 
@@ -25,7 +26,9 @@ const Navbar = () => {
                     <a href="#apps" className="text-base font-bold text-black hover:text-[#5e17eb] transition-colors">Our Apps</a>
                     <a href="#about" className="text-base font-bold text-black hover:text-[#5e17eb] transition-colors">About</a>
                     <a href="#reviews" className="text-base font-bold text-black hover:text-[#5e17eb] transition-colors">Reviews</a>
-                    <Button variant="primary" className="px-6 py-2 text-xs uppercase font-black">Get the App</Button>
+                    <Button variant="primary" className="px-6 py-2 text-xs uppercase font-black flex items-center gap-2">
+                        <AppleIcon size={16} /> Get the App
+                    </Button>
                 </div>
 
                 <button className="md:hidden" onClick={() => setMobileMenuOpen(!mobileMenuOpen)}>
