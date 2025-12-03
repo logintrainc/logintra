@@ -12,7 +12,7 @@ const Navigation: React.FC = () => {
   const [showTooltip, setShowTooltip] = useState(false);
 
   return (
-    <nav className="fixed top-6 left-0 right-0 z-40 flex self-start px-2 md:px-4">
+    <nav className="fixed top-6 left-0 right-0 z-40 flex justify-center md:self-start px-2 md:px-4">
       <div className="glass-panel rounded-full px-2 py-2 flex items-center justify-between w-full max-w-[95vw] md:min-w-[500px] md:w-auto shadow-xl shadow-brand-primary/5">
 
         <div className="flex items-center gap-1 md:gap-2 pl-2 md:pl-4">
