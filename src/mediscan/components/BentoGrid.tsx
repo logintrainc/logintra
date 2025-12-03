@@ -8,6 +8,7 @@ const BentoGrid: React.FC = () => {
   const [barHeights, setBarHeights] = useState([40, 60, 30, 70, 50, 80, 45]);
   const [isHistoryVisible, setIsHistoryVisible] = useState(false);
   const historyCardRef = useRef<HTMLDivElement>(null);
+  const [scanState, setScanState] = useState<'idle' | 'scanning' | 'complete'>('idle');
 
   // Generate random heights for the bars
   const generateRandomHeights = () => {
@@ -47,6 +48,19 @@ const BentoGrid: React.FC = () => {
     return () => clearInterval(interval);
   }, [isHistoryVisible]);
 
+  // Handle scan button click
+  const handleScan = () => {
+    setScanState('scanning');
+    setTimeout(() => {
+      setScanState('complete');
+    }, 2000);
+  };
+
+  // Reset scan
+  const resetScan = () => {
+    setScanState('idle');
+  };
+
   return (
     <section className="min-h-screen pt-32 pb-20 px-4 md:px-8 max-w-7xl mx-auto">
 
@@ -70,7 +84,7 @@ const BentoGrid: React.FC = () => {
           initial={{ opacity: 0, x: 50 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.8, delay: 0.3 }}
-          className="hidden md:flex justify-center mb-[10rem] ml-[15rem]"
+          className="hidden md:flex justify-center mb-[12rem] ml-[15rem]"
         >
           <DisplayCards />
         </motion.div>
@@ -83,7 +97,7 @@ const BentoGrid: React.FC = () => {
           initial={{ opacity: 0, scale: 0.98 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.5, delay: 0.4 }}
-          className="md:col-span-8 row-span-2 relative h-[500px] md:h-[650px] rounded-[2.5rem] overflow-hidden group bg-white shadow-2xl shadow-brand-primary/5 border border-brand-subtle"
+          className="md:col-span-8 row-span-2 relative h-[61rem] md:h-[650px] rounded-[2.5rem] overflow-hidden group bg-white shadow-2xl shadow-brand-primary/5 border border-brand-subtle"
         >
           <div className="relative z-10 h-full flex flex-col md:flex-row items-center justify-between p-8 md:p-16 gap-8">
             <div className="max-w-xs space-y-6 z-20">
@@ -111,28 +125,377 @@ const BentoGrid: React.FC = () => {
               </div>
             </div>
 
-            {/* Phone Mockup with Static Content */}
-            <div className="relative w-[320px] h-[640px] bg-white rounded-[3rem] p-4 border-8 border-gray-900 shadow-2xl rotate-[-2deg] md:translate-y-0 group-hover:rotate-0 transition-all duration-700 ease-out transform-gpu">
-              <div className="h-full w-full rounded-[2rem] overflow-hidden bg-gradient-to-br from-blue-50 to-white flex flex-col">
-                {/* Simple MediScan Preview */}
-                <div className="flex-1 flex flex-col items-center justify-center p-6 space-y-6">
-                  <div className="w-24 h-24 rounded-3xl bg-gradient-to-br from-[#000046] to-[#1CB5E0] flex items-center justify-center shadow-xl">
-                    <ScanLine className="w-12 h-12 text-white" />
-                  </div>
-                  <div className="text-center">
-                    <h3 className="text-2xl font-bold text-gray-900 mb-2">MediScan AI</h3>
-                    <p className="text-sm text-gray-600">Point & Identify</p>
-                  </div>
-                  <div className="w-full max-w-[200px] space-y-3">
-                    <div className="bg-white p-3 rounded-xl shadow-md border border-gray-100">
-                      <div className="h-2 w-full bg-gradient-to-r from-[#000046] to-[#1CB5E0] rounded-full"></div>
-                    </div>
-                    <div className="bg-white p-3 rounded-xl shadow-md border border-gray-100 flex items-center gap-2">
-                      <ShieldCheck className="w-4 h-4 text-green-500" />
-                      <span className="text-xs font-medium text-gray-700">Safe to use</span>
+            {/* Phone Mockup with Interactive Content */}
+            <div className="relative w-[260px] h-[520px] bg-gray-800 rounded-[2.5rem] p-2 border-4 border-gray-700 shadow-2xl rotate-[-2deg] md:translate-y-0 group-hover:rotate-0 group-hover:scale-105 transition-all duration-700 ease-out transform-gpu">
+              <div className="h-full w-full rounded-[2rem] overflow-hidden bg-white flex flex-col relative">
+
+                {/* Status Bar */}
+                <div className="px-3 py-1.5 flex items-center justify-between text-[10px] font-medium text-brand-primary">
+                  <span className="font-bold">9:41</span>
+                  <div className="flex items-center gap-1">
+                    <div className="w-3 h-2.5 border border-brand-primary rounded-sm relative">
+                      <div className="absolute inset-0.5 bg-brand-accent rounded-[1px]"></div>
                     </div>
                   </div>
                 </div>
+
+                {/* Main Content Area */}
+                <AnimatePresence mode="wait">
+                  {scanState === 'idle' && (
+                    <motion.div
+                      key="idle"
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      exit={{ opacity: 0 }}
+                      className="flex-1 flex flex-col items-center justify-center p-3 space-y-3 relative"
+                    >
+                      {/* Animated Icon with Pulse */}
+                      <motion.div
+                        className="w-20 h-20 rounded-2xl bg-brand-primary flex items-center justify-center shadow-xl relative"
+                        animate={{
+                          boxShadow: [
+                            '0 10px 40px rgba(28, 181, 224, 0.3)',
+                            '0 10px 60px rgba(28, 181, 224, 0.6)',
+                            '0 10px 40px rgba(28, 181, 224, 0.3)',
+                          ]
+                        }}
+                        transition={{
+                          duration: 2,
+                          repeat: Infinity,
+                          ease: "easeInOut"
+                        }}
+                      >
+                        <motion.div
+                          animate={{
+                            scale: [1, 1.1, 1],
+                            rotate: [0, 5, -5, 0]
+                          }}
+                          transition={{
+                            duration: 3,
+                            repeat: Infinity,
+                            ease: "easeInOut"
+                          }}
+                        >
+                          <ScanLine className="w-10 h-10 text-white" />
+                        </motion.div>
+
+                        {/* Pulsing Ring */}
+                        <motion.div
+                          className="absolute inset-0 rounded-2xl border-2 border-brand-accent"
+                          animate={{
+                            scale: [1, 1.2, 1],
+                            opacity: [0.5, 0, 0.5]
+                          }}
+                          transition={{
+                            duration: 2,
+                            repeat: Infinity,
+                            ease: "easeOut"
+                          }}
+                        />
+                      </motion.div>
+
+                      {/* Title */}
+                      <div className="text-center">
+                        <h3 className="text-xl font-bold text-brand-primary mb-1">MediScan AI</h3>
+                        <p className="text-xs text-brand-primary/60 font-medium">Point & Identify</p>
+                      </div>
+
+                      {/* Status Card */}
+                      <motion.div
+                        className="bg-white p-3 rounded-xl shadow-lg border border-brand-subtle/50 flex items-center gap-2 w-full max-w-[180px]"
+                        whileHover={{ scale: 1.02, borderColor: '#1CB5E0' }}
+                        transition={{ duration: 0.2 }}
+                        animate={{
+                          borderColor: ['#E2E8F0', '#1CB5E0', '#E2E8F0']
+                        }}
+                        transition={{
+                          duration: 3,
+                          repeat: Infinity,
+                          ease: "easeInOut"
+                        }}
+                      >
+                        <motion.div
+                          animate={{ scale: [1, 1.2, 1] }}
+                          transition={{
+                            duration: 1.5,
+                            repeat: Infinity,
+                            ease: "easeInOut"
+                          }}
+                        >
+                          <ShieldCheck className="w-4 h-4 text-green-500" />
+                        </motion.div>
+                        <div className="flex-1">
+                          <span className="text-[10px] font-bold text-brand-primary block">Ready to Scan</span>
+                          <span className="text-[9px] text-brand-accent font-medium">Tap below to start</span>
+                        </div>
+                      </motion.div>
+
+                      {/* Floating Particles */}
+                      <motion.div
+                        className="absolute top-16 left-6 w-1.5 h-1.5 rounded-full bg-brand-accent"
+                        animate={{
+                          y: [0, -15, 0],
+                          opacity: [0.3, 0.8, 0.3]
+                        }}
+                        transition={{
+                          duration: 3,
+                          repeat: Infinity,
+                          ease: "easeInOut"
+                        }}
+                      />
+                      <motion.div
+                        className="absolute bottom-24 right-6 w-2 h-2 rounded-full bg-brand-primary"
+                        animate={{
+                          y: [0, 15, 0],
+                          opacity: [0.2, 0.6, 0.2]
+                        }}
+                        transition={{
+                          duration: 4,
+                          repeat: Infinity,
+                          ease: "easeInOut",
+                          delay: 0.5
+                        }}
+                      />
+                    </motion.div>
+                  )}
+
+                  {scanState === 'scanning' && (
+                    <motion.div
+                      key="scanning"
+                      initial={{ opacity: 0, scale: 0.95 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      exit={{ opacity: 0, scale: 1.05 }}
+                      className="flex-1 flex flex-col items-center justify-center p-3 space-y-3 relative"
+                    >
+                      {/* Camera View Simulation */}
+                      <div className="relative w-full h-48 bg-gradient-to-br from-brand-primary/10 to-brand-accent/10 rounded-2xl border-2 border-dashed border-brand-accent/50 overflow-hidden">
+                        {/* Scanning Line Animation */}
+                        <motion.div
+                          className="absolute left-0 right-0 h-0.5 bg-brand-accent shadow-lg shadow-brand-accent/50"
+                          animate={{
+                            top: ['0%', '100%']
+                          }}
+                          transition={{
+                            duration: 1.5,
+                            repeat: Infinity,
+                            ease: "linear"
+                          }}
+                        />
+
+                        {/* Corner Brackets */}
+                        <div className="absolute top-2 left-2 w-6 h-6 border-l-2 border-t-2 border-brand-accent"></div>
+                        <div className="absolute top-2 right-2 w-6 h-6 border-r-2 border-t-2 border-brand-accent"></div>
+                        <div className="absolute bottom-2 left-2 w-6 h-6 border-l-2 border-b-2 border-brand-accent"></div>
+                        <div className="absolute bottom-2 right-2 w-6 h-6 border-r-2 border-b-2 border-brand-accent"></div>
+
+                        {/* Medicine Bottle Silhouette */}
+                        <div className="absolute inset-0 flex items-center justify-center">
+                          <motion.div
+                            className="w-16 h-24 bg-gradient-to-br from-brand-primary/20 to-brand-accent/20 rounded-lg"
+                            animate={{
+                              scale: [1, 1.05, 1],
+                            }}
+                            transition={{
+                              duration: 1,
+                              repeat: Infinity,
+                              ease: "easeInOut"
+                            }}
+                          />
+                        </div>
+                      </div>
+
+                      {/* Scanning Status */}
+                      <div className="w-full space-y-3">
+                        <div className="text-center">
+                          <motion.h3
+                            className="text-lg font-bold text-brand-primary mb-1"
+                            animate={{ opacity: [1, 0.5, 1] }}
+                            transition={{ duration: 1.5, repeat: Infinity }}
+                          >
+                            Scanning Medicine...
+                          </motion.h3>
+                          <p className="text-[10px] text-brand-primary/60 font-medium">Analyzing package information</p>
+                        </div>
+
+                        {/* Progress Bar */}
+                        <div className="w-full bg-brand-bg rounded-full overflow-hidden h-2">
+                          <motion.div
+                            className="h-full bg-gradient-to-r from-brand-primary to-brand-accent"
+                            initial={{ width: '0%' }}
+                            animate={{ width: '100%' }}
+                            transition={{
+                              duration: 2,
+                              ease: "easeInOut"
+                            }}
+                          />
+                        </div>
+
+                        {/* Scanning Steps */}
+                        <div className="space-y-2">
+                          <motion.div
+                            className="flex items-center gap-2 text-[10px]"
+                            initial={{ opacity: 0, x: -10 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            transition={{ delay: 0.2 }}
+                          >
+                            <Check className="w-3 h-3 text-brand-accent" />
+                            <span className="text-brand-primary/70">Capturing image...</span>
+                          </motion.div>
+                          <motion.div
+                            className="flex items-center gap-2 text-[10px]"
+                            initial={{ opacity: 0, x: -10 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            transition={{ delay: 0.8 }}
+                          >
+                            <Check className="w-3 h-3 text-brand-accent" />
+                            <span className="text-brand-primary/70">Analyzing text...</span>
+                          </motion.div>
+                          <motion.div
+                            className="flex items-center gap-2 text-[10px]"
+                            initial={{ opacity: 0, x: -10 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            transition={{ delay: 1.4 }}
+                          >
+                            <motion.div
+                              animate={{ rotate: 360 }}
+                              transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
+                            >
+                              <Activity className="w-3 h-3 text-brand-accent" />
+                            </motion.div>
+                            <span className="text-brand-primary/70">Identifying medicine...</span>
+                          </motion.div>
+                        </div>
+                      </div>
+                    </motion.div>
+                  )}
+
+                  {scanState === 'complete' && (
+                    <motion.div
+                      key="complete"
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -20 }}
+                      className="flex-1 flex flex-col p-3 space-y-2 overflow-y-auto"
+                    >
+                      {/* Success Header */}
+                      <motion.div
+                        className="text-center py-2"
+                        initial={{ scale: 0.8 }}
+                        animate={{ scale: 1 }}
+                        transition={{ type: "spring", duration: 0.5 }}
+                      >
+                        <motion.div
+                          className="w-16 h-16 mx-auto mb-2 rounded-full bg-green-500 flex items-center justify-center"
+                          initial={{ scale: 0 }}
+                          animate={{ scale: 1 }}
+                          transition={{ type: "spring", delay: 0.2 }}
+                        >
+                          <Check className="w-8 h-8 text-white" />
+                        </motion.div>
+                        <h3 className="text-lg font-bold text-brand-primary">Scan Complete!</h3>
+                        <p className="text-[10px] text-brand-primary/60 font-medium">Medicine identified successfully</p>
+                      </motion.div>
+
+                      {/* Medicine Details Card */}
+                      <motion.div
+                        className="bg-brand-primary p-3 rounded-xl text-white space-y-1"
+                        initial={{ y: 20, opacity: 0 }}
+                        animate={{ y: 0, opacity: 1 }}
+                        transition={{ delay: 0.3 }}
+                      >
+                        <div className="flex items-start justify-between">
+                          <div>
+                            <p className="text-[10px] opacity-80">Medication Name</p>
+                            <h4 className="text-lg font-bold">Amoxicillin</h4>
+                          </div>
+                          <div className="bg-white/20 px-2 py-1 rounded-lg text-[9px] font-bold">
+                            500mg
+                          </div>
+                        </div>
+                        <div className="text-[10px] opacity-90">
+                          <p className="font-medium">Generic antibiotic</p>
+                        </div>
+                      </motion.div>
+
+                      {/* Details Grid */}
+                      <div className="space-y-1.5">
+                        <motion.div
+                          className="bg-white border border-brand-subtle rounded-lg p-2.5"
+                          initial={{ x: -20, opacity: 0 }}
+                          animate={{ x: 0, opacity: 1 }}
+                          transition={{ delay: 0.4 }}
+                        >
+                          <div className="flex items-center gap-2 mb-1">
+                            <div className="w-6 h-6 rounded-lg bg-blue-50 flex items-center justify-center">
+                              <Activity className="w-3 h-3 text-blue-600" />
+                            </div>
+                            <span className="text-[10px] font-bold text-brand-primary">Dosage</span>
+                          </div>
+                          <p className="text-[10px] text-brand-primary/70 ml-8">Take 1 capsule every 8 hours</p>
+                        </motion.div>
+
+                        <motion.div
+                          className="bg-white border border-brand-subtle rounded-lg p-2.5"
+                          initial={{ x: -20, opacity: 0 }}
+                          animate={{ x: 0, opacity: 1 }}
+                          transition={{ delay: 0.5 }}
+                        >
+                          <div className="flex items-center gap-2 mb-1">
+                            <div className="w-6 h-6 rounded-lg bg-green-50 flex items-center justify-center">
+                              <ShieldCheck className="w-3 h-3 text-green-600" />
+                            </div>
+                            <span className="text-[10px] font-bold text-brand-primary">Safety</span>
+                          </div>
+                          <p className="text-[10px] text-green-600 ml-8 font-medium">No conflicts detected</p>
+                        </motion.div>
+
+                        <motion.div
+                          className="bg-white border border-brand-subtle rounded-lg p-2.5"
+                          initial={{ x: -20, opacity: 0 }}
+                          animate={{ x: 0, opacity: 1 }}
+                          transition={{ delay: 0.6 }}
+                        >
+                          <div className="flex items-center gap-2 mb-1">
+                            <div className="w-6 h-6 rounded-lg bg-amber-50 flex items-center justify-center">
+                              <AlertCircle className="w-3 h-3 text-amber-600" />
+                            </div>
+                            <span className="text-[10px] font-bold text-brand-primary">Notes</span>
+                          </div>
+                          <p className="text-[10px] text-brand-primary/70 ml-8">Take with food to avoid stomach upset</p>
+                        </motion.div>
+                      </div>
+
+                      {/* Action Button */}
+                      <motion.button
+                        onClick={resetScan}
+                        className="w-full bg-white border-2 border-brand-primary text-brand-primary font-bold py-2.5 rounded-xl text-xs flex items-center justify-center gap-2"
+                        whileHover={{ scale: 1.02 }}
+                        whileTap={{ scale: 0.98 }}
+                        initial={{ y: 20, opacity: 0 }}
+                        animate={{ y: 0, opacity: 1 }}
+                        transition={{ delay: 0.7 }}
+                      >
+                        <ScanLine className="w-4 h-4" />
+                        Scan Another
+                      </motion.button>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+
+                {/* Bottom Action - Only show in idle state */}
+                {scanState === 'idle' && (
+                  <div className="px-4 pb-4">
+                    <motion.button
+                      onClick={handleScan}
+                      className="w-full bg-brand-primary text-white font-bold py-2.5 rounded-xl shadow-lg flex items-center justify-center gap-2 text-sm hover:bg-brand-accent transition-colors"
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
+                    >
+                      <Smartphone className="w-4 h-4" />
+                      <span>Scan Medicine</span>
+                    </motion.button>
+                  </div>
+                )}
               </div>
             </div>
           </div>
@@ -145,7 +508,7 @@ const BentoGrid: React.FC = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.5 }}
-          className="md:col-span-4 h-[300px] bg-brand-gradient rounded-[2.5rem] p-8 flex flex-col justify-between relative overflow-hidden text-white group hover:scale-[1.02] transition-transform shadow-xl shadow-brand-accent/20"
+          className="md:col-span-4 h-[29rem] bg-brand-gradient rounded-[2.5rem] p-8 flex flex-col justify-between relative overflow-hidden text-white group hover:scale-[1.02] transition-transform shadow-xl shadow-brand-accent/20"
         >
           <div className="flex justify-between items-start text-white/90">
             <Zap size={32} />
@@ -165,7 +528,7 @@ const BentoGrid: React.FC = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.6 }}
-          className="md:col-span-4 md:row-span-2 h-[300px] md:h-auto bg-brand-surface rounded-[2.5rem] p-8 relative overflow-hidden group border border-brand-subtle shadow-xl hover:shadow-2xl transition-all"
+          className="md:col-span-4 md:row-span-2 h-[29rem] md:h-auto bg-brand-surface rounded-[2.5rem] p-8 relative overflow-hidden group border border-brand-subtle shadow-xl hover:shadow-2xl transition-all"
         >
           <div className="relative z-10 h-full flex flex-col justify-between">
             <div className="w-14 h-14 bg-red-50 rounded-2xl flex items-center justify-center mb-6">

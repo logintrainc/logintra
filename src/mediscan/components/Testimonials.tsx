@@ -124,7 +124,7 @@ const Testimonials: React.FC = () => {
         </p>
       </motion.div>
 
-      <div className="relative h-[500px] w-[350px] ml-[25%]">
+      <div className="relative h-[500px] w-[350px] ml-[5%] md:ml-[25%]">
         {testimonials.slice(0, 3).map((testimonial, index) => (
           <TestimonialCard
             key={testimonial.id}
