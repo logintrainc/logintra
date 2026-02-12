@@ -70,7 +70,7 @@ const Hero = () => {
     const content = {
         homescreen: {
             headline: <>Welcome to <br /> your <span className="italic font-black text-[#5e17eb]">home.</span></>,
-            subtext: "The Purb AI ecosystem starts here. Tap the MediScan icon to experience instant health identification.",
+            subtext: "The Logintra AI ecosystem starts here. Tap the MediScan icon to experience instant health identification.",
             tag: "iOS Experience Mockup"
         },
         appOpen: {

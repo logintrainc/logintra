@@ -51,7 +51,7 @@ const Faq = () => {
         },
         {
             question: "Can I track multiple users?",
-            answer: "Yes! Purb allows you to create separate profiles for family members, making it easy to manage medications for children, elderly parents, or even pets, all from one account."
+            answer: "Yes! Logintra allows you to create separate profiles for family members, making it easy to manage medications for children, elderly parents, or even pets, all from one account."
         }
     ];
 

@@ -12,7 +12,7 @@ const Footer = () => {
                 <div className="grid md:grid-cols-4 gap-12 mb-16">
                     <div className="col-span-1 md:col-span-2">
                         <div className="flex items-center gap-2 mb-6">
-                            <span className="text-5xl font-penmanship font-bold tracking-tight text-white">Purb<span className="text-[#5e17eb]">.</span></span>
+                            <span className="text-5xl font-penmanship font-bold tracking-tight text-white">Logintra<span className="text-[#5e17eb]">.</span></span>
                         </div>
                         <p className="text-gray-400 max-w-xs mb-8 font-bold">
                             Smoooth software for a jagged world.
@@ -39,14 +39,14 @@ const Footer = () => {
                     <div>
                         <h4 className="font-black text-white mb-6 uppercase tracking-widest">Legal</h4>
                         <ul className="space-y-4 text-sm font-bold text-gray-400">
-                            <li><a href="#" className="hover:text-[#5e17eb] transition-colors">Privacy</a></li>
-                            <li><a href="#" className="hover:text-[#5e17eb] transition-colors">Terms</a></li>
+                            <li><a href="/privacy-policy.html" className="hover:text-[#5e17eb] transition-colors">Privacy</a></li>
+                            <li><a href="/terms-of-service.html" className="hover:text-[#5e17eb] transition-colors">Terms</a></li>
                         </ul>
                     </div>
                 </div>
 
                 <div className="flex flex-col md:flex-row justify-between items-center pt-8 border-t border-gray-800 text-sm text-gray-500 font-bold">
-                    <p>&copy; 2024 Purb AI Inc.</p>
+                    <p>&copy; 2024 Logintra Inc.</p>
                     <div className="flex gap-6 mt-4 md:mt-0">
                         <a href="#" className="hover:text-[#5e17eb] transition-colors">Twitter</a>
                         <a href="#" className="hover:text-[#5e17eb] transition-colors">Instagram</a>

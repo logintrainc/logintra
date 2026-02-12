@@ -22,7 +22,7 @@ const AboutUs = () => {
                                 We believe technology should feel human. It shouldn't just solve problems; it should spark joy.
                             </p>
                             <p>
-                                At Purb, we obsess over every pixel, every interaction, and every millisecond of latency. We're not just building apps; we're crafting digital experiences that feel alive.
+                                At Logintra, we obsess over every pixel, every interaction, and every millisecond of latency. We're not just building apps; we're crafting digital experiences that feel alive.
                             </p>
                         </div>
 
@@ -49,7 +49,7 @@ const AboutUs = () => {
                                 </svg>
                             </div>
 
-                            <h3 className="text-3xl font-bold mb-4">The Purb Standard</h3>
+                            <h3 className="text-3xl font-bold mb-4">The Logintra Standard</h3>
                             <ul className="space-y-4 mb-8">
                                 {[
                                     "Pixel-perfect design",
