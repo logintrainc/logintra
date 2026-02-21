@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Sparkles, ArrowRight } from 'lucide-react';
+import adaptiveIcon from '../../assets/quranchat/adaptive-icon.png';
 
 const Navigation: React.FC = () => {
     const [scrolled, setScrolled] = useState(false);
@@ -46,7 +47,7 @@ const Navigation: React.FC = () => {
                     </div>
 
                     <a href="#" className="flex items-center gap-2 group ml-2">
-                        <img src="/src/assets/quranchat/adaptive-icon.png" alt="QuranChat Icon" className="w-10 h-10 rounded-xl shadow-[0_0_20px_rgba(16,185,129,0.3)] group-hover:shadow-[0_0_30px_rgba(16,185,129,0.5)] transition-all object-cover" />
+                        <img src={adaptiveIcon} alt="QuranChat Icon" className="w-10 h-10 rounded-xl shadow-[0_0_20px_rgba(16,185,129,0.3)] group-hover:shadow-[0_0_30px_rgba(16,185,129,0.5)] transition-all object-cover" />
                         <span className="text-xl md:text-2xl font-display font-bold tracking-tight text-white group-hover:text-quran-primary transition-colors hidden sm:block">
                             QuranChat<span className="text-quran-primary">.</span>
                         </span>

@@ -98,7 +98,7 @@ const HeroSection: React.FC = () => {
                         {/* A glow behind the phone */}
                         <div className="absolute inset-0 bg-quran-primary blur-[100px] opacity-30"></div>
 
-                        <div className="relative z-10 w-full rounded-[45px] shadow-[0_30px_60px_rgba(0,0,0,0.6)] border-4 border-[#1E293B]/80 transform rotate-[-2deg] hover:rotate-0 transition-transform duration-700 ease-out flex items-center justify-center p-2 bg-[#0F172A] overflow-hidden group">
+                        <div className="relative z-10 w-full rounded-[45px] shadow-[0_30px_60px_rgba(0,0,0,0.6)] border-4 border-[#1E293B]/80 flex items-center justify-center p-2 bg-[#0F172A] overflow-hidden group">
                             {/* Inner Screen */}
                             <div className="relative w-full aspect-[9/19.5] rounded-[35px] overflow-hidden bg-quran-surface">
                                 <AnimatePresence mode="wait">
@@ -124,7 +124,7 @@ const HeroSection: React.FC = () => {
                             </button>
 
                             {/* Slide indicators */}
-                            <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex items-center gap-1.5 z-20">
+                            <div className="absolute bottom-6 left-0 right-0 flex justify-center gap-1.5 z-20">
                                 {IMAGES.map((_, idx) => (
                                     <button
                                         key={idx}
