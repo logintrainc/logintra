@@ -46,9 +46,10 @@ const AppShowcase = () => {
             link: "/mediscan/"
         },
         {
-            title: "PhotoLink AI",
-            desc: "Connect your memories instantly.",
-            bg: "bg-gray-200" // Mid Grey
+            title: "QuranChat AI",
+            desc: "Your Spiritual Companion Powered by AI.",
+            bg: "bg-[#16433F]", // Deep Green / Theme Color
+            link: "/quranchat/"
         },
         {
             title: "EV-Map",

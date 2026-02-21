@@ -9,6 +9,7 @@ export default defineConfig({
       input: {
         main: 'index.html',
         mediscan: 'mediscan/index.html',
+        quranchat: 'quranchat/index.html',
       },
     },
   },
