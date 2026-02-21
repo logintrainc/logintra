@@ -2,15 +2,15 @@ import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { MessageSquareText, BookOpen, Heart, Download, ChevronLeft, ChevronRight } from 'lucide-react';
 
-const IMAGES = [
-    '/src/assets/quranchat/1.png',
-    '/src/assets/quranchat/2.png',
-    '/src/assets/quranchat/3.png',
-    '/src/assets/quranchat/4.png',
-    '/src/assets/quranchat/5.png',
-    '/src/assets/quranchat/6.png',
-    '/src/assets/quranchat/7.png'
-];
+import img1 from '../../assets/quranchat/1.png';
+import img2 from '../../assets/quranchat/2.png';
+import img3 from '../../assets/quranchat/3.png';
+import img4 from '../../assets/quranchat/4.png';
+import img5 from '../../assets/quranchat/5.png';
+import img6 from '../../assets/quranchat/6.png';
+import img7 from '../../assets/quranchat/7.png';
+
+const IMAGES = [img1, img2, img3, img4, img5, img6, img7];
 
 const HeroSection: React.FC = () => {
     const [currentImageIndex, setCurrentImageIndex] = useState(0);

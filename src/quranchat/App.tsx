@@ -25,9 +25,9 @@ const App: React.FC = () => {
                             <p className="text-quran-text/60 text-sm mt-2">Your Spiritual Companion Powered by AI.</p>
                         </div>
                         <div className="flex gap-6">
-                            <a href="#" className="text-quran-text/60 hover:text-quran-primary transition-colors font-medium">Privacy</a>
-                            <a href="#" className="text-quran-text/60 hover:text-quran-primary transition-colors font-medium">Terms</a>
-                            <a href="#" className="text-quran-text/60 hover:text-quran-primary transition-colors font-medium">Support</a>
+                            <a href="/privacy-policy.html" className="text-quran-text/60 hover:text-quran-primary transition-colors font-medium">Privacy</a>
+                            <a href="/terms-of-service.html" className="text-quran-text/60 hover:text-quran-primary transition-colors font-medium">Terms</a>
+                            <a href="/support.html" className="text-quran-text/60 hover:text-quran-primary transition-colors font-medium">Support</a>
                         </div>
                     </div>
                 </footer>
