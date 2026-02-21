@@ -57,9 +57,6 @@ const UtilitiesSection: React.FC = () => {
                                 <li className="flex items-center gap-3 text-white/90 font-medium font-sm"><div className="w-1.5 h-1.5 rounded-full bg-quran-gold"></div> Pure, Ad-Free uninterrupted experience.</li>
                             </ul>
 
-                            <button className="mt-10 bg-gold-gradient text-black font-bold px-8 py-3 rounded-full hover:shadow-[0_0_20px_rgba(245,158,11,0.4)] transition-all">
-                                Upgrade to Premium
-                            </button>
                         </div>
                     </div>
 

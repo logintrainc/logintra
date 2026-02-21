@@ -1,8 +1,35 @@
-import React from 'react';
-import { motion } from 'framer-motion';
-import { MessageSquareText, BookOpen, Heart, Download } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { MessageSquareText, BookOpen, Heart, Download, ChevronLeft, ChevronRight } from 'lucide-react';
+
+const IMAGES = [
+    '/src/assets/quranchat/1.png',
+    '/src/assets/quranchat/2.png',
+    '/src/assets/quranchat/3.png',
+    '/src/assets/quranchat/4.png',
+    '/src/assets/quranchat/5.png',
+    '/src/assets/quranchat/6.png',
+    '/src/assets/quranchat/7.png'
+];
 
 const HeroSection: React.FC = () => {
+    const [currentImageIndex, setCurrentImageIndex] = useState(0);
+
+    useEffect(() => {
+        const timer = setInterval(() => {
+            setCurrentImageIndex((prev) => (prev + 1) % IMAGES.length);
+        }, 3000);
+        return () => clearInterval(timer);
+    }, []);
+
+    const nextImage = () => {
+        setCurrentImageIndex((prev) => (prev + 1) % IMAGES.length);
+    };
+
+    const prevImage = () => {
+        setCurrentImageIndex((prev) => (prev - 1 + IMAGES.length) % IMAGES.length);
+    };
+
     return (
         <section className="relative min-h-[90vh] flex items-center justify-center overflow-hidden pt-20">
             {/* Background elements */}
@@ -38,7 +65,7 @@ const HeroSection: React.FC = () => {
                     </p>
 
                     <div className="flex flex-col sm:flex-row gap-4">
-                        <button className="flex items-center justify-center gap-3 bg-gradient-to-r from-[#10B981] to-[#047857] text-white px-8 py-4 rounded-full font-bold text-lg hover:shadow-[0_0_30px_rgba(16,185,129,0.4)] transition-all hover:-translate-y-1">
+                        <button className="flex items-center justify-center gap-3 bg-white text-quran-bg px-8 py-4 rounded-full font-bold text-lg hover:shadow-[0_0_30px_rgba(255,255,255,0.4)] transition-all hover:-translate-y-1">
                             <Download size={24} />
                             Get the App
                         </button>
@@ -67,37 +94,63 @@ const HeroSection: React.FC = () => {
                     transition={{ duration: 1, ease: "easeOut" }}
                     className="relative perspective-1000 hidden lg:block"
                 >
-                    <div className="relative w-full aspect-[4/5] bg-gradient-to-b from-quran-surface/80 to-quran-bg rounded-[40px] border border-white/10 shadow-2xl backdrop-blur-xl overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.5)] flex flex-col items-center justify-center p-8">
+                    <div className="relative w-[340px] mx-auto z-10 perspective-1000">
+                        {/* A glow behind the phone */}
+                        <div className="absolute inset-0 bg-quran-primary blur-[100px] opacity-30"></div>
 
-                        {/* Interactive UI Mockup Elements */}
-                        <div className="w-full space-y-4 relative z-10 p-6 glass-panel rounded-3xl mb-8 transform -rotate-2 hover:rotate-0 transition-all duration-500">
-                            <div className="flex items-center gap-4 mb-2">
-                                <div className="w-12 h-12 rounded-full bg-quran-primary/20 flex items-center justify-center">
-                                    <MessageSquareText className="text-quran-primary" size={24} />
-                                </div>
-                                <div>
-                                    <div className="text-sm font-bold text-white tracking-wide">QuranChat AI</div>
-                                    <div className="text-xs text-quran-text/60">typing...</div>
-                                </div>
+                        <div className="relative z-10 w-full rounded-[45px] shadow-[0_30px_60px_rgba(0,0,0,0.6)] border-4 border-[#1E293B]/80 transform rotate-[-2deg] hover:rotate-0 transition-transform duration-700 ease-out flex items-center justify-center p-2 bg-[#0F172A] overflow-hidden group">
+                            {/* Inner Screen */}
+                            <div className="relative w-full aspect-[9/19.5] rounded-[35px] overflow-hidden bg-quran-surface">
+                                <AnimatePresence mode="wait">
+                                    <motion.img
+                                        key={currentImageIndex}
+                                        src={IMAGES[currentImageIndex]}
+                                        alt={`QuranChat App Screenshot ${currentImageIndex + 1}`}
+                                        className="absolute inset-0 w-full h-full object-cover"
+                                        initial={{ opacity: 0, scale: 1.05 }}
+                                        animate={{ opacity: 1, scale: 1 }}
+                                        exit={{ opacity: 0, scale: 0.95 }}
+                                        transition={{ duration: 0.5 }}
+                                    />
+                                </AnimatePresence>
                             </div>
-                            <div className="p-4 rounded-2xl bg-quran-surface border border-white/5 shadow-inner">
-                                <p className="text-sm text-quran-text/90 italic">"Indeed, with hardship will be ease." (94:5) How can I help you find peace today?</p>
+
+                            {/* Navigation controls (visible on hover) */}
+                            <button onClick={prevImage} className="absolute left-4 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-black/50 text-white flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity backdrop-blur-sm z-20 hover:bg-black/70">
+                                <ChevronLeft size={16} />
+                            </button>
+                            <button onClick={nextImage} className="absolute right-4 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-black/50 text-white flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity backdrop-blur-sm z-20 hover:bg-black/70">
+                                <ChevronRight size={16} />
+                            </button>
+
+                            {/* Slide indicators */}
+                            <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex items-center gap-1.5 z-20">
+                                {IMAGES.map((_, idx) => (
+                                    <button
+                                        key={idx}
+                                        onClick={() => setCurrentImageIndex(idx)}
+                                        className={`h-1.5 rounded-full transition-all duration-300 ${idx === currentImageIndex ? 'w-4 bg-white' : 'w-1.5 bg-white/40'}`}
+                                        aria-label={`Go to slide ${idx + 1}`}
+                                    />
+                                ))}
                             </div>
                         </div>
 
-                        <div className="w-full flex gap-4 transform translate-x-4 rotate-2 hover:rotate-0 transition-all duration-500">
-                            <div className="w-1/2 p-5 glass-panel rounded-3xl flex flex-col items-center text-center gap-3">
-                                <Heart className="text-rose-400" size={32} />
-                                <span className="text-sm font-bold">Find Peace</span>
-                            </div>
-                            <div className="w-1/2 p-5 glass-panel rounded-3xl flex flex-col items-center text-center gap-3">
-                                <BookOpen className="text-blue-400" size={32} />
-                                <span className="text-sm font-bold">Seek Guidance</span>
-                            </div>
-                        </div>
-
-                        {/* Top decorative gradient glow */}
-                        <div className="absolute top-0 inset-x-0 h-40 bg-gradient-to-b from-quran-primary/20 to-transparent"></div>
+                        {/* Floating decorative elements */}
+                        <motion.div
+                            animate={{ y: [0, -10, 0] }}
+                            transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+                            className="absolute -right-8 top-1/4 p-4 glass-panel rounded-2xl border border-white/10 z-20 shadow-xl backdrop-blur-md"
+                        >
+                            <Heart className="text-rose-400" size={28} />
+                        </motion.div>
+                        <motion.div
+                            animate={{ y: [0, 10, 0] }}
+                            transition={{ duration: 5, repeat: Infinity, ease: "easeInOut", delay: 1 }}
+                            className="absolute -left-10 bottom-1/3 p-4 glass-panel rounded-2xl border border-white/10 z-20 shadow-xl backdrop-blur-md"
+                        >
+                            <BookOpen className="text-blue-400" size={28} />
+                        </motion.div>
                     </div>
                 </motion.div>
 
