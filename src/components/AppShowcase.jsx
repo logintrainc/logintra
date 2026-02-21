@@ -1,5 +1,5 @@
 import React from 'react';
-import { Pill, ScanLine, ShieldCheck } from 'lucide-react';
+import { Pill, ScanLine, ShieldCheck, BookOpen, Sparkles, MessageSquareText } from 'lucide-react';
 
 // --- Custom CSS for Marquee Animation ---
 const CustomStyles = () => (
@@ -115,13 +115,51 @@ const AppShowcase = () => {
                                                 <span className="px-3 py-1 bg-white border-2 border-black rounded-full text-xs font-bold group-hover:border-[#5e17eb] transition-colors">Safe</span>
                                             </div>
                                         </div>
+                                    ) : app.title === "QuranChat AI" ? (
+                                        <div className="h-full flex flex-col justify-between relative z-10">
+                                            {/* Top: Icon and Badge */}
+                                            <div className="flex justify-between items-start">
+                                                <div className="w-16 h-16 bg-gradient-to-br from-[#10B981] to-[#047857] rounded-2xl flex items-center justify-center border-2 border-black group-hover:border-[#5e17eb] transition-all group-hover:scale-110 duration-300">
+                                                    <BookOpen size={32} className="text-white" />
+                                                </div>
+                                                <div className="bg-black text-white px-3 py-1 rounded-full text-xs font-bold border-2 border-black group-hover:bg-[#10B981] group-hover:border-[#10B981] transition-colors">
+                                                    NEW
+                                                </div>
+                                            </div>
+
+                                            {/* Middle: Visuals */}
+                                            <div className="space-y-3">
+                                                <div className="bg-white/90 backdrop-blur-sm p-4 rounded-2xl border-2 border-black group-hover:border-[#10B981] transition-colors">
+                                                    <div className="flex items-center justify-between gap-3">
+                                                        <div className="flex items-center gap-3">
+                                                            <MessageSquareText size={20} className="text-[#10B981]" />
+                                                            <div className="font-bold text-black text-sm">AI Tafsir</div>
+                                                        </div>
+                                                        <div className="text-2xl font-bold text-[#047857]" style={{ fontFamily: 'traditional arabic, serif' }}>القرآن</div>
+                                                    </div>
+                                                </div>
+                                                <div className="bg-white/90 backdrop-blur-sm p-4 rounded-2xl border-2 border-black group-hover:border-[#10B981] transition-colors">
+                                                    <div className="flex items-center gap-3">
+                                                        <Sparkles size={20} className="text-yellow-500" />
+                                                        <span className="text-xs font-bold text-black">Spiritual Guidance</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            {/* Bottom: Feature Pills */}
+                                            <div className="flex gap-2 flex-wrap">
+                                                <span className="px-3 py-1 bg-white border-2 border-black rounded-full text-xs font-bold group-hover:border-[#10B981] transition-colors">Chat</span>
+                                                <span className="px-3 py-1 bg-white border-2 border-black rounded-full text-xs font-bold group-hover:border-[#10B981] transition-colors">Habits</span>
+                                                <span className="px-3 py-1 bg-white border-2 border-black rounded-full text-xs font-bold group-hover:border-[#10B981] transition-colors">Audio</span>
+                                            </div>
+                                        </div>
                                     ) : (
                                         /* Other Apps: Keep Original Design with SOON Badge */
                                         <div className="h-full flex flex-col justify-between relative z-10">
                                             {/* Badge */}
                                             <div className="flex justify-end">
                                                 <div className="bg-black text-white px-4 py-1.5 rounded-full text-xs font-bold border-2 border-black group-hover:bg-[#5e17eb] group-hover:border-[#5e17eb] transition-colors">
-                                                    {app.title === "QuranChat AI" ? "NEW" : "SOON"}
+                                                    SOON
                                                 </div>
                                             </div>
 
