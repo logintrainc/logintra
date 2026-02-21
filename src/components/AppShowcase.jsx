@@ -118,10 +118,10 @@ const AppShowcase = () => {
                                     ) : (
                                         /* Other Apps: Keep Original Design with SOON Badge */
                                         <div className="h-full flex flex-col justify-between relative z-10">
-                                            {/* SOON Badge */}
+                                            {/* Badge */}
                                             <div className="flex justify-end">
                                                 <div className="bg-black text-white px-4 py-1.5 rounded-full text-xs font-bold border-2 border-black group-hover:bg-[#5e17eb] group-hover:border-[#5e17eb] transition-colors">
-                                                    SOON
+                                                    {app.title === "QuranChat AI" ? "NEW" : "SOON"}
                                                 </div>
                                             </div>
 
